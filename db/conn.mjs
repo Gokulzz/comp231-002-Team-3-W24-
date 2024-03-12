@@ -1,5 +1,6 @@
 // src/db/conn.mjs
 import mongoose from 'mongoose';
+import UserModel from '../models/User.mjs';
 
 const uri = "mongodb+srv://gokulkhatri:Gokul123%21%40%23@cluster0.agpzzga.mongodb.net/?retryWrites=true&w=majority";
 
@@ -21,5 +22,10 @@ const connectToMongoDB = () => {
     });
   });
 };
+const Patient = UserModel.discriminator('Patient', new mongoose.Schema({}));
+const Doctor = UserModel.discriminator('Doctor', new mongoose.Schema({}));
+const Administrator = UserModel.discriminator('Administrator', new mongoose.Schema({}));
+const Receptionist = UserModel.discriminator('Receptionist', new mongoose.Schema({}));
 
-export { connectToMongoDB };
+export { connectToMongoDB, Patient, Doctor, Administrator, Receptionist };
+
