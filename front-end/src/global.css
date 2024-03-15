@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    list-style: none;
+    text-decoration: none;
+    --color-1 : #167797 ;
+    --color-2 : #0ca896;
+    --color-3 : white ;
+    color: white !important;
+}
+
+button {
+    cursor: pointer !important;
+    transition: all 0.33s ease !important;
+    &:hover {
+        scale: 0.9 !important;
+    }
+}
+
+
+body {
+    background-color: var(--color-1) ;
+}
+
+
+
+
