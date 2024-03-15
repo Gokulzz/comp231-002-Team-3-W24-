@@ -1,0 +1,23 @@
+.selectGroup {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.33rem;
+    input {
+        all: unset;
+        border: 1px solid rgba(255, 255, 255, 0.459);
+        border-radius: 4px;
+        padding: 0.33em;
+    }
+
+    select {
+        border: 1px solid rgba(255, 255, 255, 0.459);
+        border-radius: 4px;
+        padding: 0.33em;
+        background-color: transparent;
+    }
+    p {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+}
