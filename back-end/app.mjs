@@ -1,16 +1,18 @@
 // src/app.mjs
-import express from 'express';
-import bodyParser from 'body-parser';
-import authRoutes from './routes/authRoute.mjs';
-import { connectToMongoDB } from './db/conn.mjs';
+import express from "express";
+import bodyParser from "body-parser";
+import authRoutes from "./routes/authRoute.mjs";
+import { connectToMongoDB } from "./db/conn.mjs";
+import cors from "cors";
 
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config(); // Load environment variables
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 // Connect to MongoDB
 connectToMongoDB()
@@ -21,7 +23,7 @@ connectToMongoDB()
     });
   })
   .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
+    console.error("Error connecting to MongoDB:", error);
   });
 
-app.use('/api/auth', authRoutes);
+app.use("/api/auth", authRoutes);
