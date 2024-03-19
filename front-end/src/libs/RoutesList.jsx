@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
-import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/Auth/LoginPage/LoginPage";
 import RegisterPage from "../pages/Auth/RegisterPage/RegisterPage";
+import HomePage from "../pages/Home/HomePage";
 
 export const routes = [
     {
