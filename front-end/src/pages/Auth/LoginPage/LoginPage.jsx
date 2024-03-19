@@ -6,8 +6,12 @@ import SelectGroup from '../../../components/primary/SelectGroup/SelectGroup'
 import { Icon } from '@iconify/react'
 import axios, { formToJSON } from 'axios'
 import { SERVER_BASE_URL, AUTH_URL } from '../../../libs/Urls'
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
+
+  const navigate = useNavigate()
 
 
   const roleTypes = [
@@ -46,13 +50,29 @@ export default function LoginPage() {
             "token",
             token
           )
+
+          Swal.fire({
+            title: "Login Succes!",
+            icon: "success"
+          }).finally(res => {
+            navigate("/")
+          })
+
         }
       })
       .catch(err => {
+        console.log(err)
+        Swal.fire({
+          title: err.response.data.message,
+          icon: "error"
+        })
       })
 
 
   }
+
+
+  
 
 
 
@@ -81,14 +101,29 @@ export default function LoginPage() {
           title={"Role"}
         />
 
-        <button
-          type='submit'
-          className={styles.submitButton}>
-          <span>
-            Submit
-          </span>
-          <Icon icon="formkit:submit" />
-        </button>
+
+        <div className={styles.buttons}>
+          <button
+            type='button'
+            className={styles.registerButton}
+            onClick={()=>{navigate("/register")}}>
+            <span>
+              Register
+            </span>
+            <Icon icon="formkit:submit" />
+          </button>
+
+          <button
+            type='submit'
+            className={styles.submitButton}>
+            <span>
+              Submit
+            </span>
+            <Icon icon="formkit:submit" />
+          </button>
+        </div>
+
+
 
 
       </form>
