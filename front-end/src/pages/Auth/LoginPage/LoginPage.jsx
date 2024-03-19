@@ -72,13 +72,16 @@ export default function LoginPage() {
   }
 
 
-  
+
 
 
 
 
   return (
     <main className={styles.loginPage}>
+
+      <img className={styles.background} src="/images/hospital/image.avif" />
+
 
       <form
         onSubmit={onLoginSubmit}
@@ -106,7 +109,7 @@ export default function LoginPage() {
           <button
             type='button'
             className={styles.registerButton}
-            onClick={()=>{navigate("/register")}}>
+            onClick={() => { navigate("/register") }}>
             <span>
               Register
             </span>

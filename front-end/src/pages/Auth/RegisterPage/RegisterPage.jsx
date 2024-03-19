@@ -67,6 +67,10 @@ export default function RegisterPage() {
   return (
     <main className={styles.registerPage}>
 
+
+<img className={styles.background} src="/images/hospital/image.avif" />
+
+
       <form
         onSubmit={onRegisterSubmit}
       >

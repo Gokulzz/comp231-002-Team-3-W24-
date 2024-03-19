@@ -33,4 +33,12 @@
             color: white;
         }
     }
+
+    .background {
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        // filter: blur(10px);
+        opacity: 0.2;
+    }
 }
