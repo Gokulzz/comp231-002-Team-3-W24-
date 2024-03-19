@@ -1,4 +1,4 @@
-.loginPage {
+.registerPage {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,7 +28,7 @@
             }
         }
 
-        .registerButton {
+        .loginButton {
             border: 2px solid var(--color-3);
             color: white;
         }

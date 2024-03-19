@@ -4,6 +4,10 @@
     justify-content: space-between;
     gap: 1rem;
     padding:0 4em;
+    color: white;
+    * {
+        color: white;
+    }
     .left {
         display: flex;
         align-items: center;
@@ -23,7 +27,6 @@
         text-transform: capitalize;
         align-items: center;
         .link {
-            color: black;
             display: flex;
             align-items: center;
             justify-content: center;
