@@ -1,0 +1,14 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    padding: 2em;
+    gap: 1rem;
+    .table {
+        width: 100%;
+        height: 70dvh !important;
+      
+        
+    }
+}

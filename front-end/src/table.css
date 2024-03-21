@@ -1,0 +1,49 @@
+.ag-theme-quartz {
+    --ag-selected-row-background-color: rgb(120, 255, 120);
+}
+
+.ag-row {
+    border: none;
+    text-align: left;
+}
+.ag-cell {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    color: black !important;
+}
+
+.ag-cell .ag-input-wrapper {
+    color: black !important;
+}
+
+.ag-row-even {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Labels And Title */
+.ag-header-cell-label {
+    justify-content: center;
+    background-color: transparent !important;
+    color: white;
+}
+
+/* Header Its Self */
+.ag-header-cell {
+    background-color: var(--bs-primary) !important;
+    color: white !important;
+}
+
+/* Inputs */
+.ag-input-field-input {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.ag-header-cell .ag-icon {
+    color: white;
+}
+
+.ag-row-pinned {
+    background-color: var(--bs-primary-soft)!important;
+}
+
+.ag-row-pinned > * {
+}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 import styles from "./styles.module.scss"
@@ -20,12 +20,13 @@ export default function Header() {
 
       {
         routes.map(route => {
-          return <Link
+          return <NavLink
             className={styles.link}
+            key={route.title}
             to={route.path} >
-              {route.icon}
+            {route.icon}
             {route.title}
-          </Link>
+          </NavLink>
         })
       }
     </nav>

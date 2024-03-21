@@ -1,0 +1,40 @@
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    select {
+        width: 80%;
+        height: 60%;
+    }
+}
+
+.pending {
+    background-color: var(--bs-warning);
+}
+
+.reschedule {
+    background-color: var(--bs-info);
+}
+
+.reject {
+    background-color: var(--bs-danger);
+}
+
+.confirm {
+    background-color: var(--bs-success);
+}
+
+.cancel {
+    background-color: var(--bs-secondary);
+}
+
+.visit {
+    background-color: var(--bs-primary);
+}
+
+.all {
+    background-color: var(--bs-dark);
+}
