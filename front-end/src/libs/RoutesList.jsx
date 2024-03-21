@@ -2,6 +2,8 @@ import { Icon } from "@iconify/react";
 import LoginPage from "../pages/Auth/LoginPage/LoginPage";
 import RegisterPage from "../pages/Auth/RegisterPage/RegisterPage";
 import HomePage from "../pages/Home/HomePage";
+import ReceptionistDashboard from "../pages/Dashboards/Receptionist";
+import Apointments from "../pages/Dashboards/Receptionist/Apointments/Apointments";
 
 export const routes = [
     {
@@ -22,5 +24,18 @@ export const routes = [
         icon: <Icon icon="mdi:register" />,
         title: "Register"
     },
+    {
+        path: "/receptionist/dashboard",
+        element: <ReceptionistDashboard />,
+        icon: <Icon icon="ri:dashboard-fill" />,
+        title: "Dashboard",
+        nested: {
+            path: "/appointments",
+            element: <Apointments />,
+            icon: <Icon icon="mingcute:time-fill" />,
+            title: "Appointments",
+        }
+    },
+
 
 ]

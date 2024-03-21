@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
 
+const statusOptions = [
+  { label: "Pending", value: "pending" },
+  { label: "Reschedule", value: "reschedule" },
+  { label: "Reject", value: "reject" },
+  { label: "Confirm", value: "confirm" },
+  { label: "Cancel", value: "cancel" },
+  { label: "Visit", value: "visit" },
+  { label: "All", value: "all" },
+];
+
 const appointmentSchema = new mongoose.Schema(
   {
     userId: {
@@ -24,8 +34,7 @@ const appointmentSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      required: true,
-      default: "pending",
+      default: statusOptions[0].value,
     },
     time: {
       type: String,

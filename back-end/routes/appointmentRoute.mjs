@@ -59,14 +59,19 @@ router.get("/:id", async (req, res) => {
 // Update appointment status
 router.put("/:id/status", async (req, res) => {
   try {
+    const id = req.params.id;
+    const status = req.body.status;
     const appointment = await appointmentModel.findByIdAndUpdate(
-      req.params.id,
-      { status: req.body.status },
+      id,
+      { status: status },
       { new: true }
     );
     if (!appointment) {
       return res.status(404).json({ message: "Appointment not found" });
     }
+
+    await appointment.save();
+
     res.status(200).json({
       message: "Appointment status updated successfully",
       appointment,
