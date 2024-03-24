@@ -7,13 +7,14 @@ import styles from "./style.module.scss"
 import { get, put } from '../../../../utils/request';
 import { RECEPIONIST_URL } from '../../../../libs/Urls';
 import StatusCell from '../../../../components/Table/Cells/StatusCell';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Apointments() {
 
   const [rowData, setRowData] = useState([])
-
+  const navigator = useNavigate()
 
 
 
@@ -34,28 +35,18 @@ export default function Apointments() {
     { field: "userId", editable: false },
     { field: "doctorInfo" },
     {
-      field: "status",
-      cellRenderer: (p) => (<StatusCell {...p} options={statusOptions} />),
-      editable: false
+        field: "status",
+        cellRenderer: (p) => (<StatusCell {...p} options={statusOptions} />),
+        editable: false
     },
     { field: "time" },
-    { field: "updatedAt" },
     { field: "userId" },
     { field: "userInfo" },
     { field: "createdAt" },
     { field: "date" },
-    { field: "__v" },
-    { field: "_id" },
-    { field: "doctorInfo" },
-    { field: "status" },
-    { field: "time" },
-    { field: "updatedAt" },
-    { field: "userInfo" },
-    { field: "createdAt" },
-    { field: "date" },
-    { field: "__v" },
-    { field: "_id" }
-  ]);
+    // { field: "__v" },
+    // { field: "_id" },
+]);
 
 
   function fetchData() {
@@ -84,6 +75,11 @@ export default function Apointments() {
   }
 
 
+  const onRowDoubleClick = ({ data }) => {
+    navigator(`${data._id}`)
+  }
+
+
 
   return (
     <div
@@ -94,6 +90,7 @@ export default function Apointments() {
         className={styles.table}
         rowData={rowData}
         columnDefs={colDefs}
+        onRowDoubleClicked={onRowDoubleClick}
         defaultColDef={{
           floatingFilter: true,
           filter: true,

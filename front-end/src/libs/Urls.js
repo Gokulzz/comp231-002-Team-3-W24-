@@ -7,7 +7,12 @@ export const AUTH_URL = {
 
 export const RECEPIONIST_URL = {
   APPOINTMENTS: {
+    CREATE: SERVER_BASE_URL + "/api/appointment/",
     LIST: SERVER_BASE_URL + "/api/appointment",
     STATUS: SERVER_BASE_URL + "/api/appointment/{id}/status",
+    GET_BY_ID: SERVER_BASE_URL + "/api/appointment/{id}",
+    REQUESTS: {
+      LIST: SERVER_BASE_URL + "/api/receptionist/requests",
+    },
   },
 };

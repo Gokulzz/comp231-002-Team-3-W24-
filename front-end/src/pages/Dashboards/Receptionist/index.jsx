@@ -26,6 +26,10 @@ export default function ReceptionistDashboard() {
                     <Icon icon="mdi:bed-schedule" />
                     <span>Apointments</span>
                 </NavLink>
+                <NavLink className={isActive} to={"appointments/requests"}>
+                    <Icon icon="iconoir:git-pull-request-closed" />
+                    <span>Apointments Requests</span>
+                </NavLink>
             </nav>
             <Outlet />
         </main>
