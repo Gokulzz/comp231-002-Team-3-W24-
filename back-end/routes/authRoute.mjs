@@ -101,11 +101,15 @@ router.post("/login", async (req, res) => {
         return res.status(400).json({ message: "Invalid role" });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      email: email,
+    });
+
 
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
+
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 

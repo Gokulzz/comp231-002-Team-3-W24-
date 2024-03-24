@@ -1,7 +1,6 @@
-
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
-import validator from 'validator';
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import validator from "validator";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -10,7 +9,8 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: validator.isAlphanumeric,
-      message: props => `${props.value} is not a valid username. It should be alphanumeric.`,
+      message: (props) =>
+        `${props.value} is not a valid username. It should be alphanumeric.`,
     },
   },
   email: {
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: validator.isEmail,
-      message: props => `${props.value} is not a valid email address.`,
+      message: (props) => `${props.value} is not a valid email address.`,
     },
   },
   password: {
@@ -30,25 +30,26 @@ const userSchema = new mongoose.Schema({
         // Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit
         return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password);
       },
-      message: props => `${props.value} is not a valid password. It should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.`,
+      message: (props) =>
+        `${props.value} is not a valid password. It should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.`,
     },
   },
   role: {
     type: String,
-    enum: ['patient', 'doctor', 'administrator', 'receptionist'],
-    default:'patient'
+    enum: ["patient", "doctor", "administrator", "receptionist"],
+    default: "patient",
   },
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
   const user = this;
-  if (user.isModified('password')) {
+  if (user.isModified("password")) {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
   }
   next();
 });
 
-const UserModel = mongoose.model('User', userSchema);
+const UserModel = mongoose.model("User", userSchema);
 
 export default UserModel;
