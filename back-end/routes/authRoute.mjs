@@ -72,7 +72,7 @@ router.post("/register", async (req, res) => {
       .json({ message: `User registered successfully as ${role}` });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Server Error");
+    res.status(500).send(error);
   }
 });
 
@@ -105,11 +105,11 @@ router.post("/login", async (req, res) => {
       email: email,
     });
 
+    console.log(user);
 
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 

@@ -8,6 +8,7 @@ import { get, put } from '../../../../utils/request';
 import { RECEPIONIST_URL } from '../../../../libs/Urls';
 import StatusCell from '../../../../components/Table/Cells/StatusCell';
 import { useNavigate } from 'react-router-dom';
+import { GetAllApointments, UpdateApointmantStatus } from '../../../../services/recptionist.services';
 
 
 
@@ -17,61 +18,41 @@ export default function Apointments() {
   const navigator = useNavigate()
 
 
-
   const statusOptions = [
     { label: "Pending", value: "pending" },
     { label: "Reschedule", value: "reschedule" },
-    { label: "Reject", value: "reject" },
-    { label: "Confirm", value: "confirm" },
+    { label: "Rejected", value: "rejected" },
+    { label: "Accepted", value: "accepted" },
     { label: "Cancel", value: "cancel" },
     { label: "Visit", value: "visit" },
     { label: "All", value: "all" },
   ];
-
-
 
   const [colDefs, setColDefs] = useState([
     { field: "doctorId", editable: false },
     { field: "userId", editable: false },
     { field: "doctorInfo" },
     {
-        field: "status",
-        cellRenderer: (p) => (<StatusCell {...p} options={statusOptions} />),
-        editable: false
+      field: "status",
+      cellRenderer: (p) => (<StatusCell {...p} options={statusOptions} />),
+      editable: false
     },
     { field: "time" },
     { field: "userId" },
     { field: "userInfo" },
     { field: "createdAt" },
     { field: "date" },
-    // { field: "__v" },
-    // { field: "_id" },
-]);
+  ]);
 
 
   function fetchData() {
-    get(RECEPIONIST_URL.APPOINTMENTS.LIST)
-      .then(res => {
-        setRowData(res.data)
-      })
-      .catch(err => {
-
-      })
+    GetAllApointments()
+      .then(data => setRowData(data))
   }
 
-
-
-
-
-
   function updateData({ data }) {
-    console.log(data._id)
-    put(RECEPIONIST_URL.APPOINTMENTS.STATUS.replace("{id}", data._id), data.status)
-      .then(res => {
-        console.log(res)
-        fetchData()
-      })
-      .catch(err => { })
+    UpdateApointmantStatus(data._id, data.status)
+      .then(res => fetchData())
   }
 
 

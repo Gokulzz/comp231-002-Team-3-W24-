@@ -5,6 +5,7 @@ import { RECEPIONIST_URL, SERVER_BASE_URL } from '../../../../../libs/Urls'
 
 
 import styles from "./styles.module.scss"
+import { GetApontmentById } from '../../../../../services/recptionist.services'
 
 export default function ApointmentDetailPage() {
     const { id } = useParams()
@@ -13,43 +14,27 @@ export default function ApointmentDetailPage() {
 
     useEffect(() => {
         if (!id) return
-        get(RECEPIONIST_URL.APPOINTMENTS.GET_BY_ID.replace("{id}", id))
-            .then(res => {
-                const data = res.data
-                setData(data)
-            })
+        GetApontmentById(id)
+            .then(res => setData(res))
     }, [id])
 
 
-
-
-
-
     const [colDefs, setColDefs] = useState([
-        { field: "doctorId", editable: false },
-        { field: "userId", editable: false },
+        { field: "doctorId" },
+        { field: "userId" },
         { field: "doctorInfo" },
+        { field: "userInfo" },
         {
-            field: "status",
-            editable: false
+            field: "status"
         },
         { field: "time" },
         { field: "updatedAt" },
         { field: "userId" },
-        { field: "userInfo" },
         { field: "createdAt" },
         { field: "date" },
-        { field: "__v" },
-        { field: "_id" },
-        { field: "doctorInfo" },
         { field: "status" },
         { field: "time" },
-        { field: "updatedAt" },
-        { field: "userInfo" },
-        { field: "createdAt" },
-        { field: "date" },
-        { field: "__v" },
-        { field: "_id" }
+
     ]);
 
 
