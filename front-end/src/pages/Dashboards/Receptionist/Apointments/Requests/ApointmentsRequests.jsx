@@ -7,30 +7,36 @@ import styles from "../style.module.scss"
 import { AgGridReact } from 'ag-grid-react'
 import StatusCell from '../../../../../components/Table/Cells/StatusCell'
 import { Icon } from '@iconify/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { GetAllApointments, GetAllRequestedApointments, TakeActionForApointment } from '../../../../../services/recptionist.services'
+import Swal from 'sweetalert2'
 
 export default function ApointmentsRequests() {
+
+    const navigator = useNavigate()
 
     const [rowData, setRowData] = useState([])
 
     function fetchData() {
-        get(RECEPIONIST_URL.APPOINTMENTS.REQUESTS.LIST)
-            .then(res => {
-                setRowData(res.data)
-            })
-            .catch(err => {
-            })
+        GetAllRequestedApointments()
+            .then(res => setRowData(res))
     }
 
-    const statusOptions = [
-        { label: "Pending", value: "pending" },
-        { label: "Reschedule", value: "reschedule" },
-        { label: "Reject", value: "reject" },
-        { label: "Confirm", value: "confirm" },
-        { label: "Cancel", value: "cancel" },
-        { label: "Visit", value: "visit" },
-        { label: "All", value: "all" },
-    ];
+    const takeAction = (id, action) => {
+        Swal.fire({
+            icon: "question",
+            title: "Are You Sur for continue?",
+            showConfirmButton: true,
+            showCancelButton: true,
+        }).then(res => {
+            if (res.isConfirmed) {
+                TakeActionForApointment(id, action)
+                    .then(res => fetchData())
+            }
+        })
+
+    }
+
 
 
     const [colDefs, setColDefs] = useState([
@@ -38,8 +44,17 @@ export default function ApointmentsRequests() {
         { field: "userId", editable: false },
         { field: "doctorInfo" },
         {
-            field: "status",
-            cellRenderer: (p) => (<StatusCell {...p} options={statusOptions} />),
+            field: "action",
+            cellRenderer: ({ data }) => (
+                <div className={styles.buttons}>
+                    <button className={styles.accept} onClick={() => takeAction(data._id, "accept")}>
+                        Accept
+                    </button>
+                    <button className={styles.reject}
+                        onClick={() => takeAction(data._id, "reject")}>
+                        Reject
+                    </button>
+                </div>),
             editable: false
         },
         { field: "time" },
@@ -47,23 +62,11 @@ export default function ApointmentsRequests() {
         { field: "userInfo" },
         { field: "createdAt" },
         { field: "date" },
-        // { field: "__v" },
-        // { field: "_id" },
     ]);
 
 
-    function updateData({ data }) {
-        console.log(data._id)
-        put(RECEPIONIST_URL.APPOINTMENTS.STATUS.replace("{id}", data._id), data.status)
-            .then(res => {
-                console.log(res)
-                fetchData()
-            })
-            .catch(err => { })
-    }
-
-
     const onRowDoubleClick = ({ data }) => {
+        navigator("/receptionist/appointments/" + data._id)
     }
 
     return (
@@ -92,7 +95,7 @@ export default function ApointmentsRequests() {
                     editable: true,
                 }}
                 onCellValueChanged={(e) => {
-                    updateData(e)
+                    console.log(e)
                 }}
                 onGridReady={(e) => {
                     fetchData()
