@@ -8,22 +8,18 @@ import validator from "validator";
 
 dotenv.config(); // Load environment variables
 const router = express.Router();
+
 const verifyToken = (req, res, next) => {
   try {
-    const token = req.headers["authorization"].split(" ")[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({ message: "Invalid token." });
-      } else {
-        req.userId = decoded.userId;
-        next();
-      }
-    });
+    const token = req.headers["authorization"]?.split(" ")[1];
+    if (!token) throw new Error("No token provided");
+    
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Attach the decoded user object to the request
+    next();
   } catch (error) {
-    console.error(error);
-    return res
-      .status(401)
-      .json({ message: "Access denied. No token provided." });
+    console.error(error.message);
+    res.status(401).json({ message: "Unauthorized: " + error.message });
   }
 };
 
@@ -118,7 +114,7 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token using environment variable
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id, role: user.role}, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 

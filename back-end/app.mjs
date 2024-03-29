@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import authRoute from "./routes/authRoute.mjs";
 import appointmentRoute from "./routes/appointmentRoute.mjs";
 import receptionistRoute from "./routes/receptionistRoute.mjs"; 
+import doctorRoute from "./routes/doctorRoute.mjs";
 
 import { connectToMongoDB } from "./db/conn.mjs";
 import cors from "cors";
@@ -31,3 +32,4 @@ connectToMongoDB()
 app.use("/api/auth", authRoute);
 app.use("/api/appointment", appointmentRoute);
 app.use("/api/receptionist", receptionistRoute);
+app.use("/api/doctor", doctorRoute);
