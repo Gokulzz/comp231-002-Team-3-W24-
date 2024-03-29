@@ -91,7 +91,7 @@ router.get("/search", async (req, res) => {
     }
   });
  
-  
+  //get all the doctors 
   router.get("/all", async (req, res) => {
     try {
       // Fetch all doctors from the DoctorInfo model and populate the 'doctorId' field with the 'username' field from the UserModel
