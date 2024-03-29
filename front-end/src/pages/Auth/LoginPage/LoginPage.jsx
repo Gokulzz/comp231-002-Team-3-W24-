@@ -46,16 +46,25 @@ export default function LoginPage() {
       .then(res => {
         if (res.status === 200) {
           const token = res.data.token
+
+          const temp = {
+            token: token,
+            role: data.role
+          }
+
+          axios.defaults.headers.authorization = `Bearer ${token}`;
+
+
           localStorage.setItem(
             "token",
-            token
+            JSON.stringify(temp)
           )
 
           Swal.fire({
             title: "Login Succes!",
             icon: "success"
           }).finally(res => {
-            navigate("/")
+            navigate(`/${temp.role}`)
           })
 
         }

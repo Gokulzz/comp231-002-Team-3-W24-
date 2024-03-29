@@ -7,8 +7,14 @@ import { Icon } from '@iconify/react';
 import { formToJSON } from 'axios';
 import { post } from '../../../../../../utils/request';
 import { RECEPIONIST_URL } from '../../../../../../libs/Urls';
+import Swal from 'sweetalert2';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Create() {
+
+
+    const navigate = useNavigate();
+
 
     const statusOptions = [
         { label: "Pending", value: "pending" },
@@ -34,9 +40,17 @@ export default function Create() {
         e.preventDefault()
         const data = formToJSON(e.target)
         console.log(data)
-        post(RECEPIONIST_URL.APPOINTMENTS.CREATE, data)
+        post(RECEPIONIST_URL.RECEPTIONIST.CREATE_APOINTMENT, data)
             .then(res => {
-                console.log(res)
+                if (res.status === 201) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "New Apointment Created!"
+                    }).finally(e => {
+                        navigate(-1)
+                    })
+                }
+
             })
             .catch(err => {
                 console.log(err)
@@ -52,7 +66,6 @@ export default function Create() {
                         <input
                             type={colDef.type}
                             name={colDef.field}
-                        // You can add more props or handle onChange event as needed
                         />
                     </fieldset>
                 ))}
@@ -61,7 +74,10 @@ export default function Create() {
                         Submit
                         <Icon icon="formkit:submit" />
                     </button>
-                    <button type='button' className={styles.cancel}>
+                    <button type='button'
+                        onClick={() => {
+                            navigate(-1)
+                        }} className={styles.cancel}>
                         Cancel
                         <Icon icon="material-symbols:cancel" />
                     </button>
