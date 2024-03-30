@@ -8,7 +8,12 @@ const router = express.Router();
 const receptionist = new Receptionist();
 
 // Middleware to verify token
-router.use(verifyToken);
+router.use(verifyToken, (req, res, next) => {
+  if (req.user.role !== 'receptionist') {
+    return res.status(403).json({ message: "Forbidden: Access denied" });
+  }
+  next();
+});
 
 // Get all appointment requests
 router.get("/requests", async (req, res) => {

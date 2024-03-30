@@ -23,6 +23,7 @@ const authenticateAdmin = (req, res, next) => {
   });
 };
 
+
 // Update endpoint for doctor info
 //only system administrator can add this role....
 router.post("/:id/update-info", authenticateAdmin, async (req, res) => {
@@ -89,7 +90,31 @@ router.get("/search", async (req, res) => {
       res.status(500).send("Server Error");
     }
   });
+ 
+  //get all the doctors 
+  router.get("/all", async (req, res) => {
+    try {
+      // Fetch all doctors from the DoctorInfo model and populate the 'doctorId' field with the 'username' field from the UserModel
+      const allDoctors = await DoctorInfo.find()
+        .populate({
+          path: "doctorId",
+          select: "username",
+          model: UserModel,
+        })
+        .select("-_id -__v");
   
+      if (allDoctors.length === 0) {
+        return res.status(404).json({ message: "No doctors found" });
+      }
+  
+      res.json(allDoctors);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server Error");
+    }
+  });
+  
+
 
 
 

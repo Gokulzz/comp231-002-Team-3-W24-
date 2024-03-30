@@ -2,9 +2,9 @@
 import mongoose from "mongoose";
 import UserModel from "../models/User.mjs";
 
-//const uri = "mongodb+srv://gokulkhatri:Gokul123%21%40%23@cluster0.agpzzga.mongodb.net/?retryWrites=true&w=majority";
+ const uri = "mongodb+srv://gokulkhatri:Gokul123%21%40%23@cluster0.agpzzga.mongodb.net/?retryWrites=true&w=majority";
 
- const uri = "mongodb://127.0.0.1:27017/test";
+
 
 const connectToMongoDB = () => {
   return new Promise((resolve, reject) => {
