@@ -32,6 +32,7 @@ router.post("/", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
 //Get the appointment for specific user
 router.get("/patientAppointment", verifyToken, async (req, res) => {
   try {

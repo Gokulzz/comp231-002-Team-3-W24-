@@ -29,27 +29,51 @@ export default function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-
         <Header />
 
         <Routes>
+
           <Route path="/" element={<HomePage />} />
 
 
           {/* Auth PAges */}
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
+          <Route
+           path="login"
+           element={<LoginPage />} />
+
+
+
+          <Route
+           path="register"
+           element={<RegisterPage />} />
 
 
 
 
           {/* Recepptionist Pages */}
-          <Route path="receptionist" element={<ReceptionistLayout />}>
-            <Route index path="dashboard" element={<ReceptionistDashboard />} />
-            <Route path="appointments" element={<Apointments />} />
-            <Route path="appointments/requests" element={<ApointmentsRequests />} />
-            <Route path="appointments/requests/create" element={<Create />} />
-            <Route path="appointments/:id" element={<ApointmentDetailPage />} />
+          <Route path="receptionist"
+            element={<ReceptionistLayout />}>
+
+
+            <Route index path="dashboard"
+             element={<ReceptionistDashboard />} 
+             />
+
+
+            <Route path="appointments" 
+            element={<Apointments />} />
+
+
+            <Route 
+            path="appointments/requests" 
+            element={<ApointmentsRequests />} />
+
+            <Route 
+            path="appointments/requests/create" element={<Create />} />
+
+            <Route path="appointments/:id"
+             element={<ApointmentDetailPage />} />
+
           </Route>
 
 
@@ -66,11 +90,6 @@ export default function App() {
 
           <Route path="*" element={<h1>Not Found 404</h1>} />
         </Routes>
-
-
-
-
-
 
       </BrowserRouter>
 

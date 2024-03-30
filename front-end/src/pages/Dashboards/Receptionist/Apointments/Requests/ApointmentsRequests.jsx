@@ -19,7 +19,10 @@ export default function ApointmentsRequests() {
 
     function fetchData() {
         GetAllRequestedApointments()
-            .then(res => setRowData(res))
+            .then(res => {
+                console.log(res)
+                setRowData(res)
+            })
     }
 
     const takeAction = (id, action) => {
@@ -43,6 +46,7 @@ export default function ApointmentsRequests() {
         { field: "doctorId", editable: false },
         { field: "userId", editable: false },
         { field: "doctorInfo" },
+        { field: "userInfo" },
         {
             field: "action",
             cellRenderer: ({ data }) => (
@@ -58,8 +62,6 @@ export default function ApointmentsRequests() {
             editable: false
         },
         { field: "time" },
-        { field: "userId" },
-        { field: "userInfo" },
         { field: "createdAt" },
         { field: "date" },
     ]);
