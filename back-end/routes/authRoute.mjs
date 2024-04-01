@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
   try {
     const token = req.headers["authorization"]?.split(" ")[1];
     if (!token) throw new Error("No token provided");
-    
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // Attach the decoded user object to the request
     next();
@@ -114,9 +114,13 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token using environment variable
-    const token = jwt.sign({ userId: user._id, role: user.role}, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.json({ token });
   } catch (error) {

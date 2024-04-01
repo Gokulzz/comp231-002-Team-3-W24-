@@ -47,7 +47,7 @@ export default function RegisterPage() {
             text: "In Order To Contrinue Please Login.",
             icon: "success"
           }).finally(res => {
-            navigate("/login")
+            navigate("/auth/login")
           })
 
         }
@@ -68,7 +68,7 @@ export default function RegisterPage() {
     <main className={styles.registerPage}>
 
 
-<img className={styles.background} src="/images/hospital/image.avif" />
+      <img className={styles.background} src="/images/hospital/image.avif" />
 
 
       <form
@@ -102,7 +102,7 @@ export default function RegisterPage() {
           <button
             type='button'
             className={styles.loginButton}
-            onClick={() => { navigate("/login") }}>
+            onClick={() => { navigate("/auth/login") }}>
             <span>
               Login
             </span>

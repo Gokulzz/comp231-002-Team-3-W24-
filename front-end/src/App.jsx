@@ -23,11 +23,31 @@ import PatientLayout from "./pages/Dashboards/Patient/Layout";
 import ReceptionistLayout from "./pages/Dashboards/Receptionist/ReceptionistLayout";
 import PatientDashboard from "./pages/Dashboards/Patient/Dashboard/PatientDashboard";
 import ReceptionistDashboard from "./pages/Dashboards/Receptionist/Dashboard/ReceptionistDashboard";
+import PatientApointmentRequests from "./pages/Dashboards/Patient/ApointmentRequests/PatientApointmentRequests";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import UserSlice, { fetchUserFromDB } from "./@redux/UserSlice/UserSlice";
+import { useEffect } from "react";
+import axios from "axios";
+
+
+
+
+
 export default function App() {
+
+  const dispatcher = useDispatch()
+  const user = useSelector(state => state.user.value)
+  useEffect(() => {
+    dispatcher(fetchUserFromDB())
+  }, [])
+
 
 
   return (
     <div className='App'>
+
+
       <BrowserRouter>
         <Header />
 
@@ -38,50 +58,50 @@ export default function App() {
 
           {/* Auth PAges */}
           <Route
-           path="login"
-           element={<LoginPage />} />
+            path="/auth/login"
+            element={<LoginPage />} />
 
 
 
           <Route
-           path="register"
-           element={<RegisterPage />} />
+            path="/auth/register"
+            element={<RegisterPage />} />
 
 
 
 
           {/* Recepptionist Pages */}
-          <Route path="receptionist"
+          <Route path="/dashboard/receptionist"
             element={<ReceptionistLayout />}>
 
 
             <Route index path="dashboard"
-             element={<ReceptionistDashboard />} 
-             />
+              element={<ReceptionistDashboard />}
+            />
 
 
-            <Route path="appointments" 
-            element={<Apointments />} />
+            <Route path="appointments"
+              element={<Apointments />} />
 
 
-            <Route 
-            path="appointments/requests" 
-            element={<ApointmentsRequests />} />
+            <Route
+              path="appointments/requests"
+              element={<ApointmentsRequests />} />
 
-            <Route 
-            path="appointments/requests/create" element={<Create />} />
+            <Route
+              path="appointments/requests/create" element={<Create />} />
 
             <Route path="appointments/:id"
-             element={<ApointmentDetailPage />} />
+              element={<ApointmentDetailPage />} />
 
           </Route>
 
 
           {/* Patient Pages */}
-          <Route path="patient" element={<PatientLayout />}>
+          <Route path="/dashboard/patient" element={<PatientLayout />}>
             <Route index path="" element={<PatientDashboard />} />
             <Route index path="dashboard" element={<PatientDashboard />} />
-            <Route path="appointments/requests" element={<ApointmentsRequests />} />
+            <Route path="appointments/requests" element={<PatientApointmentRequests />} />
             <Route path="appointments/requests/create" element={<Create />} />
             <Route path="appointments/:id" element={<ApointmentDetailPage />} />
           </Route>

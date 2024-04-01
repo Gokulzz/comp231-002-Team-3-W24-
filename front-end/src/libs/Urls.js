@@ -24,4 +24,8 @@ export const RECEPIONIST_URL = {
     CREATE_APOINTMENT: SERVER_BASE_URL + "/api/appointment/",
     UPDATE_APONTMANT_STATUS: SERVER_BASE_URL + "/api/appointment/{id}/status",
   },
+  PATIENT: {
+    GET_APOINTMENT_REQUESTS:
+      SERVER_BASE_URL + "/api/appointment/patientAppointment",
+  },
 };

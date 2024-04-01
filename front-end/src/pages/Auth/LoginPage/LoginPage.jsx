@@ -8,8 +8,15 @@ import axios, { formToJSON } from 'axios'
 import { SERVER_BASE_URL, AUTH_URL } from '../../../libs/Urls'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '../../../@redux/UserSlice/UserSlice'
 
 export default function LoginPage() {
+
+
+
+
+  const dispatcher = useDispatch()
 
   const navigate = useNavigate()
 
@@ -33,38 +40,33 @@ export default function LoginPage() {
     }
   ]
 
+
   const onLoginSubmit = (e) => {
     e.preventDefault()
     const data = formToJSON(e.target)
-
-
-
 
 
     //
     axios.post(AUTH_URL.LOGIN, data)
       .then(res => {
         if (res.status === 200) {
+
+
+
           const token = res.data.token
 
-          const temp = {
+          const user = {
             token: token,
             role: data.role
           }
 
-          axios.defaults.headers.authorization = `Bearer ${token}`;
-
-
-          localStorage.setItem(
-            "token",
-            JSON.stringify(temp)
-          )
+          dispatcher(login(user))
 
           Swal.fire({
             title: "Login Succes!",
             icon: "success"
           }).finally(res => {
-            navigate(`/${temp.role}`)
+            navigate(`/dashboard/${user.role}`)
           })
 
         }
@@ -118,7 +120,7 @@ export default function LoginPage() {
           <button
             type='button'
             className={styles.registerButton}
-            onClick={() => { navigate("/register") }}>
+            onClick={() => { navigate("/auth/register") }}>
             <span>
               Register
             </span>

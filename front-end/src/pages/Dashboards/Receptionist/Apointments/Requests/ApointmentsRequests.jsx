@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { get, put } from '../../../../../utils/request'
-import { RECEPIONIST_URL } from '../../../../../libs/Urls'
 
 
 import styles from "../style.module.scss"
 import { AgGridReact } from 'ag-grid-react'
-import StatusCell from '../../../../../components/Table/Cells/StatusCell'
 import { Icon } from '@iconify/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GetAllApointments, GetAllRequestedApointments, TakeActionForApointment } from '../../../../../services/recptionist.services'

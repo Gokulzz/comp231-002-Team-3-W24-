@@ -9,6 +9,7 @@ import { post } from '../../../../../../utils/request';
 import { RECEPIONIST_URL } from '../../../../../../libs/Urls';
 import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
+import SelectDocotorModal from '../../../../../../modals/SelectDoctor/SelectDocotorModal';
 
 export default function Create() {
 
@@ -57,6 +58,9 @@ export default function Create() {
             })
     }
 
+
+
+
     return (
         <div className={styles.page}>
             <form className={styles.form} onSubmit={handleOnFormSubmit}>
@@ -83,6 +87,11 @@ export default function Create() {
                     </button>
                 </div>
             </form>
+            <SelectDocotorModal
+                isOpen={true}
+                onSelectSubmit={(e) => { console.log(e) }}
+                onClose={(e)=>{console.log(e)}}
+            />
         </div>
     );
 }

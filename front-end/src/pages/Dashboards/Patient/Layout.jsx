@@ -22,13 +22,15 @@ export default function PatientLayout() {
                     <Icon icon="mdi:view-dashboard" />
                     <span>Dashboard</span>
                 </NavLink>
-                <NavLink className={isActive} to={"appointments"}>
-                    <Icon icon="mdi:bed-schedule" />
-                    <span>Apointments</span>
-                </NavLink>
+
                 <NavLink className={isActive} to={"appointments/requests"}>
                     <Icon icon="iconoir:git-pull-request-closed" />
                     <span>Request Apointment</span>
+                </NavLink>
+
+                <NavLink className={isActive} to={"appointments/requests/create"}>
+                    <Icon icon="iconoir:git-pull-request-closed" />
+                    <span>Book Apointment</span>
                 </NavLink>
             </nav>
             <Outlet />
