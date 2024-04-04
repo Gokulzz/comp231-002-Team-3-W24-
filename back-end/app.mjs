@@ -5,6 +5,7 @@ import authRoute from "./routes/authRoute.mjs";
 import appointmentRoute from "./routes/appointmentRoute.mjs";
 import receptionistRoute from "./routes/receptionistRoute.mjs"; 
 import doctorRoute from "./routes/doctorRoute.mjs";
+import administratorRoute from "./routes/administratorRoute.mjs";
 
 import { connectToMongoDB } from "./db/conn.mjs";
 import cors from "cors";
@@ -33,3 +34,4 @@ app.use("/api/auth", authRoute);
 app.use("/api/appointment", appointmentRoute);
 app.use("/api/receptionist", receptionistRoute);
 app.use("/api/doctor", doctorRoute);
+app.use("/api/administrator", administratorRoute);
