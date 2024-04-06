@@ -4,7 +4,7 @@ const statusOptions = [
   { label: "Pending", value: "pending" },
   { label: "Reschedule", value: "reschedule" },
   { label: "Reject", value: "reject" },
-  { label: "Confirm", value: "confirm" },
+  { label: "Accept", value: "accept" },
   { label: "Cancel", value: "cancel" },
   { label: "Visit", value: "visit" },
   { label: "All", value: "all" },

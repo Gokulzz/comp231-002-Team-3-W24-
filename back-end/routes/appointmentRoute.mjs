@@ -6,13 +6,20 @@ import { verifyToken } from "./authRoute.mjs";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
+router.use(verifyToken, (req, res, next) => {
+  if (req.user.role !== 'patient') {
+    return res.status(403).json({ message: "Forbidden: Access denied" });
+  }
+  next();
+});
 
 
 // Create a new appointment
 router.post("/", verifyToken, async (req, res) => {
   try {
     // The user is authenticated, proceed with appointment creation
-    const { userId, doctorId, doctorInfo, userInfo, date, time } = req.body;
+    const userId = req.user.userId; // Fetch user ID from the decoded token
+    const { doctorId, doctorInfo, userInfo, date, time } = req.body;
 
     const appointment = new appointmentModel({
       userId,

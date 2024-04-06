@@ -5,6 +5,9 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import DoctorInfo  from "../models/doctor.mjs";
 import UserModel from "../models/User.mjs";
+import appointmentModel from "../models/appointment.mjs";
+import prescriptionModel from "../models/prescription.mjs";
+
 
 const router = express.Router();
 
@@ -113,6 +116,66 @@ router.get("/search", async (req, res) => {
       res.status(500).send("Server Error");
     }
   });
+  const authenticateDoctor = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: "Invalid token" });
+      }
+      if (decoded.role !== "doctor") {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+      req.userId = decoded.userId; // Save userId in request object for further use
+      next();
+    });
+  };
+  
+  // Get all accepted appointments for a doctor, if any
+  router.get("/appointments", authenticateDoctor, async (req, res) => {
+    try {
+      const doctorId = req.userId; // Get doctor's userId from the request
+      const doctorAppointments = await appointmentModel.find({ doctorId, status: "accepted" });
+      
+      if (doctorAppointments.length === 0) {
+        return res.json([]); // Return empty array if no accepted appointments found
+      }
+      
+      
+      res.json(doctorAppointments);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server Error");
+    }
+  });
+  //to prescribe the medicine to the doctor
+
+  router.post("/prescribe", authenticateDoctor, async (req, res) => {
+    try {
+      const { patientId, medication, dosage, instructions } = req.body;
+      
+      // Check if the patient exists
+      const patient = await UserModel.findById(patientId);
+      if (!patient) {
+        return res.status(404).json({ message: "Patient not found" });
+      }
+  
+      // Create a new prescription
+      const prescription = new prescriptionModel({
+        doctorId: req.userId, // Doctor's ID from the token
+        patientId,
+        medication,
+        dosage,
+        instructions
+      });
+      
+      await prescription.save();
+      res.status(201).json({ message: "Prescription created successfully", prescription });
+    } catch (error) {
+      console.error("Error prescribing treatment:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
   
 
 
