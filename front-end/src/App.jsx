@@ -29,6 +29,9 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import UserSlice, { fetchUserFromDB } from "./@redux/UserSlice/UserSlice";
 import { useEffect } from "react";
 import axios from "axios";
+import AdminLayout from "./pages/Dashboards/Admin/Layout";
+import AdminDashboard from "./pages/Dashboards/Admin/Dashboard/AdminDashboard";
+import UsersPage from "./pages/Dashboards/Admin/Users/UsersPage";
 
 
 
@@ -104,6 +107,15 @@ export default function App() {
             <Route path="appointments/requests" element={<PatientApointmentRequests />} />
             <Route path="appointments/requests/create" element={<Create />} />
             <Route path="appointments/:id" element={<ApointmentDetailPage />} />
+          </Route>
+
+
+
+          {/* administrator Pages */}
+          <Route path="/dashboard/administrator/" element={<AdminLayout />}>
+            <Route index path="" element={<AdminDashboard />} />
+            <Route index path="dashboard" element={<AdminDashboard />} />
+            <Route path="users" element={<UsersPage />} />
           </Route>
 
 

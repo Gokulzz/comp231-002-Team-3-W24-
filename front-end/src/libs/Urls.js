@@ -29,3 +29,10 @@ export const RECEPIONIST_URL = {
       SERVER_BASE_URL + "/api/appointment/patientAppointment",
   },
 };
+
+export const ADMINSTRATOR = {
+  USERS: {
+    LIST: SERVER_BASE_URL + "/api/administrator/users",
+    DELETE: SERVER_BASE_URL + "/api/administrator/users/{id}",
+  },
+};

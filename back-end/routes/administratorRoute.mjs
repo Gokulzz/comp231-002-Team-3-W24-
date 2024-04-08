@@ -30,8 +30,6 @@ router.get("/users", authenticateAdmin, async (req, res) => {
   }
 });
 
-
-
 // Delete a user
 router.delete("/users/:id", authenticateAdmin, async (req, res) => {
   try {
