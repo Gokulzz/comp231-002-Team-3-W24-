@@ -35,4 +35,8 @@ export const ADMINSTRATOR = {
     LIST: SERVER_BASE_URL + "/api/administrator/users",
     DELETE: SERVER_BASE_URL + "/api/administrator/users/{id}",
   },
+  DOCTORS: {
+    LIST: SERVER_BASE_URL + "/api/doctor/all",
+    UPDATE: SERVER_BASE_URL + "/api/doctor/{id}/update-info",
+  },
 };
