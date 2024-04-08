@@ -1,35 +1,51 @@
 // src/app.mjs
 import express from "express";
-import bodyParser from "body-parser";
-import authRoute from "./routes/authRoute.mjs";
-import appointmentRoute from "./routes/appointmentRoute.mjs";
-import receptionistRoute from "./routes/receptionistRoute.mjs"; 
-import doctorRoute from "./routes/doctorRoute.mjs";
-
-import { connectToMongoDB } from "./db/conn.mjs";
+import {config} from "dotenv";
 import cors from "cors";
-import dotenv from "dotenv";
-dotenv.config(); // Load environment variables
+import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
+import connectToMongoDB from "./db/conn.mjs";
+
+import messageRoute from "./routes/messageRoute.mjs"
+import userRoute from "./routes/userRoute.mjs"
+
+// import authRoute from "./routes/authRoute.mjs";
+// import appointmentRoute from "./routes/appointmentRoute.mjs";
+// import receptionistRoute from "./routes/receptionistRoute.mjs"; 
+// import doctorRoute from "./routes/doctorRoute.mjs";
+
+import {errorMiddleware} from "./middlewares/errorMiddleware.mjs"
+
+
+
+
 
 const app = express();
-const port = process.env.PORT || 3001;
+config({ path: "./config/config.env" });
+app.use(cors({
+  origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 
-app.use(bodyParser.json());
-app.use(cors());
 
-// Connect to MongoDB
-connectToMongoDB()
-  .then(() => {
-    // Connected to MongoDB, start the server
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
-  });
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
 
-app.use("/api/auth", authRoute);
-app.use("/api/appointment", appointmentRoute);
-app.use("/api/receptionist", receptionistRoute);
-app.use("/api/doctor", doctorRoute);
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: "/tmp/",
+}));
+
+app.use("/api/message", messageRoute);
+app.use("/api/user", userRoute);
+// app.use("/api/auth", authRoute);
+// app.use("/api/appointment", appointmentRoute);
+// app.use("/api/receptionist", receptionistRoute);
+// app.use("/api/doctor", doctorRoute);
+
+connectToMongoDB();
+
+app.use(errorMiddleware);
+export default app;
