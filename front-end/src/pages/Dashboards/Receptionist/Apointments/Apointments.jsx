@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import styles from "./style.module.scss"
 import { get, put } from '../../../../utils/request';
 import { RECEPIONIST_URL } from '../../../../libs/Urls';
-import StatusCell from '../../../../components/Table/Cells/StatusCell';
+import StatusCell from '../../../../components/Table/Cells/StatusCell/StatusCell';
 import { useNavigate } from 'react-router-dom';
 import { GetAllApointments, UpdateApointmantStatus } from '../../../../services/recptionist.services';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import StatusCell from '../../../../../../components/Table/Cells/StatusCell';
+import StatusCell from '../../../../../../components/Table/Cells/StatusCell/StatusCell';
 
 
 import styles from "../../style.module.scss"

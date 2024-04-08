@@ -1,0 +1,14 @@
+.buttonCell {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 0.25rem !important;
+    height: 1rem;
+    padding: 0.33em 1em;
+}
+
+.danger {
+    background-color: var(--bs-danger);
+}
