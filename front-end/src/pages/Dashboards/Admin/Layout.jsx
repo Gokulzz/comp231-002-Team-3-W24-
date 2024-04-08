@@ -24,8 +24,14 @@ export default function AdminLayout() {
                 </NavLink>
 
                 <NavLink className={isActive} to={"users"}>
-                    <Icon icon="iconoir:git-pull-request-closed" />
+                    <Icon icon="mdi:users" />
                     <span>Users</span>
+                </NavLink>
+
+
+                <NavLink className={isActive} to={"doctors"}>
+                    <Icon icon="fontisto:doctor" />
+                    <span>Doctors</span>
                 </NavLink>
             </nav>
             <Outlet />

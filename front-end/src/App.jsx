@@ -32,6 +32,7 @@ import axios from "axios";
 import AdminLayout from "./pages/Dashboards/Admin/Layout";
 import AdminDashboard from "./pages/Dashboards/Admin/Dashboard/AdminDashboard";
 import UsersPage from "./pages/Dashboards/Admin/Users/UsersPage";
+import DoctorsPage from "./pages/Dashboards/Admin/Doctors/DoctorsPage";
 
 
 
@@ -116,6 +117,7 @@ export default function App() {
             <Route index path="" element={<AdminDashboard />} />
             <Route index path="dashboard" element={<AdminDashboard />} />
             <Route path="users" element={<UsersPage />} />
+            <Route path="doctors" element={<DoctorsPage />} />
           </Route>
 
 

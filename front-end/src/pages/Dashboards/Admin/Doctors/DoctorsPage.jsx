@@ -3,39 +3,24 @@ import { AgGridReact } from 'ag-grid-react';
 
 
 import styles from "./styles.module.scss"
-import { DeleteUser, GetAllUsers } from '../../../../services/adminstrator.services';
+import { DeleteUser, GetAllDoctors, GetAllUsers, UpdateeDoctor } from '../../../../services/adminstrator.services';
 import CellContainer from '../../../../components/Table/Cells/CellContainer/CellContainer';
 import ButtonCell from '../../../../components/Table/Cells/ButtonCell/ButtonCell';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Swal from "sweetalert2"
 
-export default function UsersPage() {
+export default function DoctorsPage() {
 
 
-    const handleDelete = (data) => {
-        Swal.fire({
-            icon: "question",
-            title: "Are You Sur to Delete User ?",
-            confirmButtonColor: "red",
-            confirmButtonText: "Yes Delete It!.",
-            denyButtonText: "Cancel",
-            denyButtonColor: "var(--bs-info)",
-            showDenyButton: true
-        }).then(result => {
-            if (result.isConfirmed) {
-                DeleteUser(data._id)
-                    .then(res => fetchData())
-            }
-        })
-    }
 
 
     const [colDefs, setColDefs] = useState([
-        { field: "_id", editable: false, headerName: "User ID", flex: 1 },
-        { field: "username", editable: false, headerName: "Username", flex: 1 },
-        { field: "email", editable: false, headerName: "Email", flex: 1 },
-        { field: "role", editable: false, headerName: "Role", flex: 1 },
-        { field: "__t", editable: false, headerName: "User Type", flex: 1 },
+        { field: "doctorId._id", editable: false, headerName: "Doctor ID", flex: 1 },
+        { field: "doctorId.username", editable: false, headerName: "UserName", flex: 1 },
+        { field: "speciality", editable: true, headerName: "Speciality", flex: 1 },
+        { field: "experience", editable: true, headerName: "Experience", flex: 1 },
+        // { field: "createdAt", editable: false, headerName: "Created At", flex: 1 },
+        // { field: "updatedAt", editable: false, headerName: "Updated At", flex: 1 },
         {
             field: "controlls",
             editable: false,
@@ -59,7 +44,7 @@ export default function UsersPage() {
 
 
     const fetchData = () => {
-        GetAllUsers()
+        GetAllDoctors()
             .then(res => {
                 console.log(res)
                 setRowData(res)
@@ -68,11 +53,37 @@ export default function UsersPage() {
     }
 
 
+    const handleDelete = (data) => {
+        Swal.fire({
+            icon: "question",
+            title: "Are You Sur to Delete User ?",
+            confirmButtonColor: "red",
+            confirmButtonText: "Yes Delete It!.",
+            denyButtonText: "Cancel",
+            denyButtonColor: "var(--bs-info)",
+            showDenyButton: true
+        }).then(result => {
+            if (result.isConfirmed) {
+                DeleteUser(data.doctorId._id)
+                    .then(res => fetchData())
+            }
+        })
+    }
+
+    const handleUpdate = ({ data }) => {
+        UpdateeDoctor(data.doctorId._id, data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
+
+
+
     return (
         <div
             className={`${styles.page} ag-theme-quartz`}
         >
-            <h1>All Users</h1>
+            <h1>All Doctors</h1>
             <AgGridReact
                 className={styles.table}
                 rowData={rowData}
@@ -86,6 +97,7 @@ export default function UsersPage() {
                 onGridReady={(e) => {
                     fetchData()
                 }}
+                onCellValueChanged={handleUpdate}
 
             />
         </div>
