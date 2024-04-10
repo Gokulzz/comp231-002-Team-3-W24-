@@ -3,12 +3,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1;
     color: white;
     border-radius: 0.25rem !important;
     height: 1rem;
     padding: 0.33em 1em;
+    gap: 0.25rem;
 }
 
 .danger {
     background-color: var(--bs-danger);
+}
+
+
+.success {
+    background-color: var(--bs-success);
 }

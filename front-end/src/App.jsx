@@ -33,6 +33,9 @@ import AdminLayout from "./pages/Dashboards/Admin/Layout";
 import AdminDashboard from "./pages/Dashboards/Admin/Dashboard/AdminDashboard";
 import UsersPage from "./pages/Dashboards/Admin/Users/UsersPage";
 import DoctorsPage from "./pages/Dashboards/Admin/Doctors/DoctorsPage";
+import DoctorLayout from "./pages/Dashboards/Doctor/DoctorLayout";
+import DoctorDashboard from "./pages/Dashboards/Doctor/Dashboard/DoctorDashboard";
+import DoctorApointments from "./pages/Dashboards/Doctor/Apointments/DoctorApointments";
 
 
 
@@ -118,6 +121,15 @@ export default function App() {
             <Route index path="dashboard" element={<AdminDashboard />} />
             <Route path="users" element={<UsersPage />} />
             <Route path="doctors" element={<DoctorsPage />} />
+          </Route>
+
+
+
+          {/* Doctors Pages */}
+          <Route path="/dashboard/doctor/" element={<DoctorLayout />}>
+            <Route index path="" element={<DoctorDashboard />} />
+            <Route index path="dashboard" element={<DoctorDashboard />} />
+            <Route path="appointments" element={<DoctorApointments />} />
           </Route>
 
 

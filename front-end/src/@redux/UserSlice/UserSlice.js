@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   token: undefined,
   role: "normal",
+  userId: undefined,
 };
 
 const UserSlice = createSlice({
