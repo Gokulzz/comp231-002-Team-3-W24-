@@ -7,6 +7,7 @@ import DoctorInfo from "../models/doctor.mjs";
 import UserModel from "../models/User.mjs";
 import appointmentModel from "../models/appointment.mjs";
 import prescriptionModel from "../models/prescription.mjs";
+import MedicalReportModel from "../models/patientmedicalRecord.mjs";
 
 const router = express.Router();
 
@@ -180,6 +181,56 @@ router.post("/prescribe", authenticateDoctor, async (req, res) => {
   } catch (error) {
     console.error("Error prescribing treatment:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+//fetching patient ID by using patient username
+router.get("/get-patient-id/:username", authenticateDoctor, async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // Fetch the user by username to get the patient's ID
+    const patient = await UserModel.findOne({ username });
+    if (!patient) {
+      return res.status(404).json({ message: "Patient not found" });
+    }
+
+    res.json({ patientId: patient._id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+//creating or updating the patient medical report 
+router.put("/update-medical-report/:patientId", authenticateDoctor, async (req, res) => {
+  try {
+    const { patientId } = req.params;
+    const { report } = req.body;
+
+    // Check if the patient exists
+    const patient = await UserModel.findById(patientId);
+    if (!patient) {
+      return res.status(404).json({ message: "Patient not found" });
+    }
+
+    // Check if the doctor has permissions to update the medical report for this patient
+    const medicalReport = await MedicalReportModel.findOne({ patientId });
+    if (!medicalReport) {
+      // If the medical report doesn't exist, create a new one
+      const newMedicalReport = new MedicalReportModel({
+        patientId,
+        report
+      });
+      await newMedicalReport.save();
+    } else {
+      // If the medical report already exists, update it
+      medicalReport.report = report;
+      await medicalReport.save();
+    }
+
+    res.json({ message: "Medical report updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
   }
 });
 
