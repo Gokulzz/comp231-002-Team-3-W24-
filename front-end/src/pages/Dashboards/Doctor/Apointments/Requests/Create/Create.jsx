@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import StatusCell from '../../../../../../components/Table/Cells/StatusCell/StatusCell';
 
 
 import styles from "../../style.module.scss"
-import { Icon, _api } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import { formToJSON } from 'axios';
 import { post } from '../../../../../../utils/request';
 import { RECEPIONIST_URL } from '../../../../../../libs/Urls';
@@ -11,70 +11,30 @@ import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SelectDocotorModal from '../../../../../../modals/SelectDoctor/SelectDocotorModal';
 
-import { useSelector } from "react-redux";
-
 export default function Create() {
 
-    const user = useSelector(state => state.user.value)
-    const [showModal, setIsShowModal] = useState(false)
+
     const navigate = useNavigate();
-    const [selectedDoctor, setSelectedDoctor] = useState()
 
 
+    const statusOptions = [
+        { label: "Pending", value: "pending" },
+        { label: "Reschedule", value: "reschedule" },
+        { label: "Reject", value: "reject" },
+        { label: "Confirm", value: "confirm" },
+        { label: "Cancel", value: "cancel" },
+        { label: "Visit", value: "visit" },
+        { label: "All", value: "all" },
+    ];
 
-
-    const [colDefs, setColDefs] = useState([]);
-
-
-    useEffect(() => {
-        setColDefs([])
-
-        setColDefs([
-            {
-                field: "userId",
-                type: "text",
-                editable: false,
-                defaultValue: user.token,
-                readOnly: true
-
-            },
-            {
-                field: "doctorId",
-                type: "text",
-                editable: false,
-                onClick: () => setIsShowModal(true),
-                selectField: "_id",
-
-                readOnly: true
-
-            },
-            {
-                field: "doctorInfo",
-                type: "text",
-                onClick: () => setIsShowModal(true),
-                selectField: "experience",
-                readOnly: true
-
-
-            },
-            {
-                field: "userInfo",
-                type: "text"
-            },
-            {
-                field: "date",
-                type: "date"
-            },
-            {
-                field: "time",
-                type: "time"
-            },
-        ])
-    }, [user])
-
-
-
-
+    const [colDefs, setColDefs] = useState([
+        { field: "userId", type: "text", editable: false },
+        { field: "doctorId", type: "text", editable: false },
+        { field: "doctorInfo", type: "text" },
+        { field: "userInfo", type: "text" },
+        { field: "date", type: "date" },
+        { field: "time", type: "time" },
+    ]);
 
 
     const handleOnFormSubmit = (e) => {
@@ -101,21 +61,15 @@ export default function Create() {
 
 
 
-
-
     return (
         <div className={styles.page}>
             <form className={styles.form} onSubmit={handleOnFormSubmit}>
                 {colDefs.map((colDef, index) => (
-                    <fieldset key={index} onClick={colDef.onClick}>
+                    <fieldset key={index}>
                         <legend>{colDef.field}</legend>
                         <input
                             type={colDef.type}
                             name={colDef.field}
-                            required
-                            defaultValue={colDef.defaultValue ||
-                                selectedDoctor && selectedDoctor[colDef.selectField]}
-                            readOnly={colDef.readOnly}
                         />
                     </fieldset>
                 ))}
@@ -134,13 +88,9 @@ export default function Create() {
                 </div>
             </form>
             <SelectDocotorModal
-                isOpen={showModal}
-                setIsOpen={setIsShowModal}
-                onSelectSubmit={(e) => {
-                    setSelectedDoctor(e)
-                    setIsShowModal(false)
-                }}
-                onClose={(e) => { console.log(e) }}
+                isOpen={true}
+                onSelectSubmit={(e) => { console.log(e) }}
+                onClose={(e)=>{console.log(e)}}
             />
         </div>
     );

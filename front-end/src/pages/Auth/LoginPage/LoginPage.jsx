@@ -52,12 +52,14 @@ export default function LoginPage() {
         if (res.status === 200) {
 
 
+          console.log(res.data)
 
-          const token = res.data.token
+          const responseData = res.data
 
           const user = {
-            token: token,
-            role: data.role
+            token: responseData.token,
+            userId: responseData.userId,
+            role: data.role,
           }
 
           dispatcher(login(user))

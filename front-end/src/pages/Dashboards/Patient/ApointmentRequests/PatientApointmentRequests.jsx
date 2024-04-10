@@ -5,14 +5,26 @@ import { Icon } from '@iconify/react'
 import { AgGridReact } from 'ag-grid-react'
 import styles from "./styles.module.scss"
 import { GetAllPatientApointments } from '../../../../services/pateint.services'
-
+import StatusCell from '../../../../components/Table/Cells/StatusCell/StatusCell'
 export default function PatientApointmentRequests() {
   const navigator = useNavigate()
 
   const [rowData, setRowData] = useState([])
 
+  const statusOptions = [
+    { label: "Pending", value: "pending" },
+    { label: "Reschedule", value: "reschedule" },
+    { label: "Rejected", value: "rejected" },
+    { label: "Accepted", value: "accepted" },
+    { label: "Cancel", value: "cancel" },
+    { label: "Visit", value: "visit" },
+    { label: "All", value: "all" },
+  ];
+
+
   function fetchData() {
-    GetAllPatientApointments(res => console.log(res))
+    GetAllPatientApointments()
+      .then(res => setRowData(res))
       .catch(err => console.log(err))
   }
 
@@ -31,35 +43,24 @@ export default function PatientApointmentRequests() {
   }
 
 
-
   const [colDefs, setColDefs] = useState([
     { field: "doctorId", editable: false },
     { field: "userId", editable: false },
-    { field: "doctorInfo" },
-    { field: "userInfo" },
+    { field: "doctorInfo", flex: 1, editable: false },
+    { field: "userInfo", flex: 1, editable: false },
     {
-      field: "action",
-      cellRenderer: ({ data }) => (
-        <div className={styles.buttons}>
-          <button className={styles.accept} onClick={() => takeAction(data._id, "accept")}>
-            Accept
-          </button>
-          <button className={styles.reject}
-            onClick={() => takeAction(data._id, "reject")}>
-            Reject
-          </button>
-        </div>),
+      field: "status",
+      cellRenderer: (p) => (<StatusCell
+        {...p}
+        options={statusOptions}
+        readOnly={true} />),
       editable: false
     },
-    { field: "time" },
-    { field: "createdAt" },
-    { field: "date" },
+    { field: "time", editable: false },
+    { field: "date", editable: false },
   ]);
 
 
-  const onRowDoubleClick = ({ data }) => {
-    navigator("/receptionist/appointments/" + data._id)
-  }
 
   return (
     <div
@@ -70,7 +71,6 @@ export default function PatientApointmentRequests() {
         className={styles.table}
         rowData={rowData}
         columnDefs={colDefs}
-        onRowDoubleClicked={onRowDoubleClick}
         defaultColDef={{
           floatingFilter: true,
           filter: true,
