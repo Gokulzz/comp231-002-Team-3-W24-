@@ -12,7 +12,7 @@ import { GetAllApointments, UpdateApointmantStatus } from '../../../../services/
 
 
 
-export default function Apointments() {
+export default function ReceptionistApointments() {
 
   const [rowData, setRowData] = useState([])
   const navigator = useNavigate()
@@ -29,8 +29,8 @@ export default function Apointments() {
   ];
 
   const [colDefs, setColDefs] = useState([
-    { field: "doctorId", editable: false },
-    { field: "userId", editable: false },
+    { field: "doctorId", editable: false, flex: 1 },
+    { field: "userId", editable: false, flex: 1 },
     { field: "doctorInfo" },
     {
       field: "status",
@@ -51,7 +51,7 @@ export default function Apointments() {
   }
 
   function updateData({ data }) {
-    UpdateApointmantStatus(data._id, data.status)
+    UpdateApointmantStatus(data._id, { ...data })
       .then(res => fetchData())
   }
 

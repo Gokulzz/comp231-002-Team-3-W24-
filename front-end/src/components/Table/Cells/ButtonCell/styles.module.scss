@@ -15,7 +15,15 @@
     background-color: var(--bs-danger);
 }
 
-
 .success {
     background-color: var(--bs-success);
+}
+
+.warning {
+    background-color: var(--bs-warning);
+    color: black;
+}
+
+.info {
+    background-color: var(--bs-info);
 }
