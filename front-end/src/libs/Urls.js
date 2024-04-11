@@ -40,3 +40,13 @@ export const ADMINSTRATOR = {
     UPDATE: SERVER_BASE_URL + "/api/doctor/{id}/update-info",
   },
 };
+
+export const DOCTOR = {
+  APPOINTMENTS: {
+    LIST: SERVER_BASE_URL + "/api/doctor/appointments",
+  },
+};
+
+export const PATIENT = {
+  DOCTORS_LIST: SERVER_BASE_URL + "/api/doctor/all",
+};

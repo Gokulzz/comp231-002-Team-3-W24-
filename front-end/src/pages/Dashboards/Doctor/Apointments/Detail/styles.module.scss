@@ -1,0 +1,21 @@
+.page {
+    .detail {
+        grid-template-columns: repeat(auto-fit , minmax(24rem,1fr));
+        display: grid;
+        color: white;
+        gap: 2rem;
+        padding: 5em;
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            border: 1px solid white;
+            padding: 1em;
+            border-radius: 0.5rem;
+            .body {
+            }
+            .header {
+            }
+        }
+    }
+}

@@ -15,9 +15,10 @@ export default function StatusCell(props) {
     };
 
 
+
     return (
         <div className={`${styles.cell} ${styles[value]}`}>
-            <select value={value} onChange={handleChange}>
+            <select disabled={props?.readOnly} value={value} onChange={handleChange}>
                 {
                     options.map((opt, index) => {
                         return <option key={index} value={opt.value}>{opt.label}</option>

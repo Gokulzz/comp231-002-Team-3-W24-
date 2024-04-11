@@ -122,7 +122,7 @@ router.post("/login", async (req, res) => {
       }
     );
 
-    res.json({ token });
+    res.json({ token, userId: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");

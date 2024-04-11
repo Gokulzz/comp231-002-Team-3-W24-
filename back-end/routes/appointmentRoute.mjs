@@ -9,12 +9,11 @@ import jwt from "jsonwebtoken";
 
 const router = express.Router();
 router.use(verifyToken, (req, res, next) => {
-  if (req.user.role !== 'patient') {
+  if (req.user.role !== "patient") {
     return res.status(403).json({ message: "Forbidden: Access denied" });
   }
   next();
 });
-
 
 // Create a new appointment
 router.post("/", verifyToken, async (req, res) => {
@@ -74,7 +73,7 @@ router.get("/patientAppointment", verifyToken, async (req, res) => {
 
     // Find appointments for the logged-in user (patient)
     const appointments = await appointmentModel.find({ userId });
-    
+
     res.status(200).json(appointments);
   } catch (error) {
     console.error("Error fetching appointments:", error);
@@ -92,8 +91,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
-
 
 // Update appointment status
 router.put("/:id/status", async (req, res) => {
