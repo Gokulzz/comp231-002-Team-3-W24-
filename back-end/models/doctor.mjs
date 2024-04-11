@@ -5,7 +5,7 @@ const doctorInfoSchema = new mongoose.Schema(
   {
     doctorId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Doctor', // Reference to the Doctor model
+      ref: 'User', // Reference to the User model
       required: true,
       unique: true,
     },

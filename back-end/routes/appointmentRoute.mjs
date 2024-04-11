@@ -3,6 +3,8 @@
 import express from "express";
 import appointmentModel from "../models/appointment.mjs";
 import { verifyToken } from "./authRoute.mjs";
+import doctorModel from "../models/doctor.mjs";
+import userModel from "../models/User.mjs";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
@@ -17,10 +19,33 @@ router.use(verifyToken, (req, res, next) => {
 // Create a new appointment
 router.post("/", verifyToken, async (req, res) => {
   try {
-    // The user is authenticated, proceed with appointment creation
-    const userId = req.user.userId; // Fetch user ID from the decoded token
-    const { doctorId, doctorInfo, userInfo, date, time } = req.body;
+    const userId = req.user.userId;
+    const { doctorUsername, userInfo, date, time } = req.body;
 
+    // Find the user associated with the doctor's username from the userModel
+    const doctorUser = await userModel.findOne({ username: doctorUsername, role: 'doctor' }); // Ensure the user is a doctor
+    if (!doctorUser) {
+      return res.status(404).json({ message: "Doctor user not found" });
+    }
+    console.log("doctorUser:", doctorUser); 
+
+    // Get the associated doctor's information from the doctorModel using the doctorId from the user document
+    const doctor = await doctorModel.findOne({ doctorId: doctorUser._id });
+    if (!doctor) {
+      return res.status(404).json({ message: "Doctor not found" });
+    }
+    console.log("doctor:", doctor); 
+
+    // Extract doctorId, speciality, and experience from the fetched doctor
+    const { _id: doctorId, speciality, experience } = doctor;
+
+    // Construct the doctorInfo object with speciality included
+    const doctorInfo = JSON.stringify({
+      speciality,
+      experience
+    });
+
+    // Create the appointment
     const appointment = new appointmentModel({
       userId,
       doctorId,
@@ -30,16 +55,17 @@ router.post("/", verifyToken, async (req, res) => {
       time,
     });
 
+    // Save the appointment
     await appointment.save();
-    res
-      .status(201)
-      .json({ message: "Appointment created successfully", appointment });
+
+    // Send the response
+    res.status(201).json({ message: "Appointment created successfully", appointment });
+
   } catch (error) {
     console.error("Error creating appointment:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
 //Get the appointment for specific user
 router.get("/patientAppointment", verifyToken, async (req, res) => {
   try {
