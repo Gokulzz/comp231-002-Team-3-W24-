@@ -64,12 +64,9 @@ router.get("/search", async (req, res) => {
     const { name, username } = req.query;
 
     if (!name && !username) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Please provide either name or username as a query parameter",
-        });
+      return res.status(400).json({
+        message: "Please provide either name or username as a query parameter",
+      });
     }
 
     let query = {};
@@ -102,6 +99,7 @@ router.get("/search", async (req, res) => {
 router.get("/all", async (req, res) => {
   try {
     // Fetch all doctors from the DoctorInfo model and populate the 'doctorId' field with the 'username' field from the UserModel
+
     const allDoctors = await DoctorInfo.find()
       .populate({
         path: "doctorId",
@@ -138,8 +136,9 @@ const authenticateDoctor = (req, res, next) => {
 router.get("/appointments", authenticateDoctor, async (req, res) => {
   try {
     const doctorId = req.userId; // Get doctor's userId from the request
+
     const doctorAppointments = await appointmentModel.find({
-      doctorId,
+      doctorId: `${doctorId}`,
       status: "accepted",
     });
 
@@ -183,55 +182,112 @@ router.post("/prescribe", authenticateDoctor, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+//fetching patient prescribeS LIST
+router.get(
+  "/patient-prescribes/:patientId",
+  authenticateDoctor,
+  async (req, res) => {
+    try {
+      const { patientId } = req.params;
+
+      const records = await prescriptionModel.find();
+
+      if (!records || !patientId) {
+        return res.status(404).json({ message: "Patient not found" });
+      }
+
+      res.json(records);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 //fetching patient ID by using patient username
-router.get("/get-patient-id/:username", authenticateDoctor, async (req, res) => {
-  try {
-    const { username } = req.params;
+router.get(
+  "/get-patient-id/:username",
+  authenticateDoctor,
+  async (req, res) => {
+    try {
+      const { username } = req.params;
 
-    // Fetch the user by username to get the patient's ID
-    const patient = await UserModel.findOne({ username });
-    if (!patient) {
-      return res.status(404).json({ message: "Patient not found" });
+      // Fetch the user by username to get the patient's ID
+      const patient = await UserModel.findOne({ username });
+      if (!patient) {
+        return res.status(404).json({ message: "Patient not found" });
+      }
+
+      res.json({ patientId: patient._id });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server Error");
     }
-
-    res.json({ patientId: patient._id });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
   }
-});
-//creating or updating the patient medical report 
-router.put("/update-medical-report/:patientId", authenticateDoctor, async (req, res) => {
-  try {
-    const { patientId } = req.params;
-    const { report } = req.body;
+);
 
-    // Check if the patient exists
-    const patient = await UserModel.findById(patientId);
-    if (!patient) {
-      return res.status(404).json({ message: "Patient not found" });
-    }
-
-    // Check if the doctor has permissions to update the medical report for this patient
-    const medicalReport = await MedicalReportModel.findOne({ patientId });
-    if (!medicalReport) {
-      // If the medical report doesn't exist, create a new one
-      const newMedicalReport = new MedicalReportModel({
-        patientId,
-        report
+//fetching patient Medical Reports
+router.get(
+  "/patient-medial-reports/:patientId",
+  authenticateDoctor,
+  async (req, res) => {
+    try {
+      const { patientId } = req.params;
+      const records = await MedicalReportModel.find({
+        patientId: patientId,
       });
-      await newMedicalReport.save();
-    } else {
-      // If the medical report already exists, update it
-      medicalReport.report = report;
-      await medicalReport.save();
-    }
 
-    res.json({ message: "Medical report updated successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
+      if (!records || !patientId) {
+        return res.status(404).json({ message: "Patient not found" });
+      }
+
+      res.json(records);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server Error");
+    }
   }
-});
+);
+
+//creating or updating the patient medical report
+router.put(
+  "/update-medical-report/:patientId",
+  authenticateDoctor,
+  async (req, res) => {
+    try {
+      const { patientId } = req.params;
+      const { report } = req.body;
+
+      console.log(patientId)
+
+      // Check if the patient exists
+      const patient = await UserModel.findById(patientId);
+      if (!patient) {
+        return res.status(404).json({ message: "Patient not found" });
+      }
+
+      // Check if the doctor has permissions to update the medical report for this patient
+      const medicalReport = await MedicalReportModel.findOne({ patientId });
+      if (!medicalReport) {
+        // If the medical report doesn't exist, create a new one
+        const newMedicalReport = new MedicalReportModel({
+          patientId,
+          report,
+        });
+        await newMedicalReport.save();
+      } else {
+        // If the medical report already exists, update it
+        medicalReport.report = report;
+        await medicalReport.save();
+      }
+
+      res.json({ message: "Medical report updated successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 
 export default router;

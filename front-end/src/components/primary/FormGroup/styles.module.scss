@@ -9,12 +9,28 @@
     }
     input {
         all: unset;
+    }
+    input,
+    textarea {
+        background-color: transparent;
         border: 1px solid rgba(255, 255, 255, 0.459);
         border-radius: 4px;
         padding: 0.33em;
+        outline: none !important;
+        font-size: 1rem;
+        resize: vertical;
     }
     p {
         font-size: 1rem;
         font-weight: bold;
+    }
+
+    .fieldHeader {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        svg {
+            font-size: 1.5rem;
+        }
     }
 }

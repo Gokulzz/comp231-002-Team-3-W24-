@@ -52,8 +52,6 @@ export default function LoginPage() {
         if (res.status === 200) {
 
 
-          console.log(res.data)
-
           const responseData = res.data
 
           const user = {

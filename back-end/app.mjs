@@ -3,7 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import authRoute from "./routes/authRoute.mjs";
 import appointmentRoute from "./routes/appointmentRoute.mjs";
-import receptionistRoute from "./routes/receptionistRoute.mjs"; 
+import receptionistRoute from "./routes/receptionistRoute.mjs";
 import doctorRoute from "./routes/doctorRoute.mjs";
 import administratorRoute from "./routes/administratorRoute.mjs";
 

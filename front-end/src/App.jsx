@@ -10,15 +10,13 @@ import { routes } from "./libs/RoutesList"
 import HomePage from "./pages/Home/HomePage";
 import LoginPage from "./pages/Auth/LoginPage/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage/RegisterPage";
-import Apointments from "./pages/Dashboards/Receptionist/Apointments/Apointments";
+import ReceptionistApointments from "./pages/Dashboards/Receptionist/Apointments/ReceptionistApointments";
 
 
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-quartz.css";
-import "./table.css"
+
 import ApointmentDetailPage from "./pages/Dashboards/Receptionist/Apointments/Detail/ApointmentDetailPage";
 import ApointmentsRequests from "./pages/Dashboards/Receptionist/Apointments/Requests/ApointmentsRequests";
-import Create from "./pages/Dashboards/Receptionist/Apointments/Requests/Create/Create";
+import PatientCreateApointment from "./pages/Dashboards/Receptionist/Apointments/Requests/Create/PatientCreateApointment";
 import PatientLayout from "./pages/Dashboards/Patient/Layout";
 import ReceptionistLayout from "./pages/Dashboards/Receptionist/ReceptionistLayout";
 import PatientDashboard from "./pages/Dashboards/Patient/Dashboard/PatientDashboard";
@@ -82,21 +80,22 @@ export default function App() {
             element={<ReceptionistLayout />}>
 
 
-            <Route index path="dashboard"
+            <Route
+              index
+              path="dashboard"
               element={<ReceptionistDashboard />}
             />
 
 
-            <Route path="appointments"
-              element={<Apointments />} />
+            <Route
+              path="appointments"
+              element={<ReceptionistApointments />} />
 
 
             <Route
               path="appointments/requests"
               element={<ApointmentsRequests />} />
 
-            <Route
-              path="appointments/requests/create" element={<Create />} />
 
             <Route path="appointments/:id"
               element={<ApointmentDetailPage />} />
@@ -109,7 +108,7 @@ export default function App() {
             <Route index path="" element={<PatientDashboard />} />
             <Route index path="dashboard" element={<PatientDashboard />} />
             <Route path="appointments/requests" element={<PatientApointmentRequests />} />
-            <Route path="appointments/requests/create" element={<Create />} />
+            <Route path="appointments/requests/create" element={<PatientCreateApointment />} />
             <Route path="appointments/:id" element={<ApointmentDetailPage />} />
           </Route>
 

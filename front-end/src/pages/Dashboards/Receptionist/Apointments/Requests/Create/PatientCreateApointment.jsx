@@ -6,14 +6,14 @@ import styles from "../../style.module.scss"
 import { Icon, _api } from '@iconify/react';
 import { formToJSON } from 'axios';
 import { post } from '../../../../../../utils/request';
-import { RECEPIONIST_URL } from '../../../../../../libs/Urls';
+import { PATIENT, RECEPIONIST_URL } from '../../../../../../libs/Urls';
 import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SelectDocotorModal from '../../../../../../modals/SelectDoctor/SelectDocotorModal';
 
 import { useSelector } from "react-redux";
 
-export default function Create() {
+export default function PatientCreateApointment() {
 
     const user = useSelector(state => state.user.value)
     const [showModal, setIsShowModal] = useState(false)
@@ -81,7 +81,7 @@ export default function Create() {
         e.preventDefault()
         const data = formToJSON(e.target)
         console.log(data)
-        post(RECEPIONIST_URL.RECEPTIONIST.CREATE_APOINTMENT, data)
+        post(PATIENT.CREATE_APPOINTMENT, data)
             .then(res => {
                 if (res.status === 201) {
                     Swal.fire({
