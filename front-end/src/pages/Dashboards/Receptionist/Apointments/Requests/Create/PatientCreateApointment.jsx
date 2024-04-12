@@ -39,22 +39,13 @@ export default function PatientCreateApointment() {
 
             },
             {
-                field: "doctorId",
+                field: "doctorUsername",
                 type: "text",
                 editable: false,
                 onClick: () => setIsShowModal(true),
-                selectField: "_id",
+                selectField: "doctorUsername",
 
                 readOnly: true
-
-            },
-            {
-                field: "doctorInfo",
-                type: "text",
-                onClick: () => setIsShowModal(true),
-                selectField: "experience",
-                readOnly: true
-
 
             },
             {
@@ -96,6 +87,7 @@ export default function PatientCreateApointment() {
             .catch(err => {
                 console.log(err)
             })
+
     }
 
 
