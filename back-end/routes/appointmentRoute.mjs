@@ -29,14 +29,14 @@ router.post("/", verifyToken, async (req, res) => {
     console.log("doctorUser:", doctorUser); 
 
     // Get the associated doctor's information from the doctorModel using the doctorId from the user document
-    const doctor = await doctorModel.findOne({ doctorId: doctorUser.doctorId });
+    const doctor = await doctorModel.findOne({ doctorId: doctorUser._id });
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
     console.log("doctor:", doctor); 
 
     // Extract doctorId, speciality, and experience from the fetched doctor
-    const { _id: doctorId, speciality, experience } = doctor;
+    const { doctorId, speciality, experience } = doctor;
 
     // Construct the doctorInfo object with speciality included
     const doctorInfo = JSON.stringify({
