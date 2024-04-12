@@ -34,12 +34,11 @@ export default function DoctorsTable({ onRowDoubleClick, onSelectRow }) {
             const { username, _id, __t } = data.doctorId
             const newData = {
               ...data,
-              username,
+              doctorUsername: username,
               _id,
               __t
             }
             onSelectRow(newData)
-
           }}
           title={"Select"}
           variant={"success"} />
@@ -57,6 +56,7 @@ export default function DoctorsTable({ onRowDoubleClick, onSelectRow }) {
       .then(res => setRowData(res))
       .catch(err => console.log(err))
   }
+
 
 
   return (
