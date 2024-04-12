@@ -8,7 +8,7 @@ export const AUTH_URL = {
 export const RECEPIONIST_URL = {
   APPOINTMENTS: {
     CREATE: SERVER_BASE_URL + "/api/appointment/",
-    LIST: SERVER_BASE_URL + "/api/appointment",
+    LIST: SERVER_BASE_URL + "/api/receptionist/requests",
     STATUS: SERVER_BASE_URL + "/api/appointment/{id}/status",
     GET_BY_ID: SERVER_BASE_URL + "/api/appointment/{id}",
     REQUESTS: {
@@ -17,12 +17,10 @@ export const RECEPIONIST_URL = {
   },
   RECEPTIONIST: {
     GET_ALL_REQUESTS: SERVER_BASE_URL + "/api/receptionist/requests",
-    GET_ALL_APOINTMENTS: SERVER_BASE_URL + "/api/appointment",
-    GET_APOINTMENTS_BY_ID: SERVER_BASE_URL + "/api/appointment/{id}",
+    GET_APOINTMENTS_BY_ID: SERVER_BASE_URL + "/api/receptionist/requests/{id}",
     TAKE_ACTION_FRO_APOINTMENT:
-      SERVER_BASE_URL + "/api/receptionist/requests/{id}",
-    CREATE_APOINTMENT: SERVER_BASE_URL + "/api/appointment/",
-    UPDATE_APONTMANT_STATUS: SERVER_BASE_URL + "/api/appointment/{id}/status",
+      SERVER_BASE_URL + "/api/receptionist/requests/action/{id}",
+    UPDATE_APONTMANT: SERVER_BASE_URL + "/api/receptionist/requests/{id}",
   },
   PATIENT: {
     GET_APOINTMENT_REQUESTS:
@@ -44,9 +42,21 @@ export const ADMINSTRATOR = {
 export const DOCTOR = {
   APPOINTMENTS: {
     LIST: SERVER_BASE_URL + "/api/doctor/appointments",
+    MEDICAL_REPORT: {
+      CREATE: SERVER_BASE_URL + "/api/doctor/update-medical-report/{patientId}",
+      LIST: SERVER_BASE_URL + "/api/doctor/patient-medial-reports/{patientId}",
+    },
+    PRESCRIE: {
+      CREATE: SERVER_BASE_URL + "/api/doctor/prescribe/",
+      LIST: SERVER_BASE_URL + "/api/doctor/patient-prescribes/{patientId}",
+    },
   },
 };
 
 export const PATIENT = {
   DOCTORS_LIST: SERVER_BASE_URL + "/api/doctor/all",
+  APPOINTMENTS: {
+    LIST: SERVER_BASE_URL + "/api/appointment/patientAppointment",
+  },
+  CREATE_APPOINTMENT: SERVER_BASE_URL + "/api/appointment/",
 };

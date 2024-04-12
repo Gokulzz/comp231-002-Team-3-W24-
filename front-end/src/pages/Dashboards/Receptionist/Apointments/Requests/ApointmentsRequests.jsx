@@ -5,7 +5,7 @@ import styles from "../style.module.scss"
 import { AgGridReact } from 'ag-grid-react'
 import { Icon } from '@iconify/react'
 import { Link, useNavigate } from 'react-router-dom'
-import { GetAllApointments, GetAllRequestedApointments, TakeActionForApointment } from '../../../../../services/recptionist.services'
+import { GetAllRequestedApointments, TakeActionForApointment } from '../../../../../services/recptionist.services'
 import Swal from 'sweetalert2'
 
 export default function ApointmentsRequests() {
@@ -40,8 +40,8 @@ export default function ApointmentsRequests() {
 
 
     const [colDefs, setColDefs] = useState([
-        { field: "doctorId", editable: false },
-        { field: "userId", editable: false },
+        { field: "doctorId", editable: false, flex: 1 },
+        { field: "userId", editable: false, flex: 1 },
         { field: "doctorInfo" },
         { field: "userInfo" },
         {
@@ -65,7 +65,7 @@ export default function ApointmentsRequests() {
 
 
     const onRowDoubleClick = ({ data }) => {
-        navigator("/receptionist/appointments/" + data._id)
+        navigator("/dashboard/receptionist/appointments/" + data._id)
     }
 
     return (
@@ -74,13 +74,6 @@ export default function ApointmentsRequests() {
         >
             <h1>
                 <span>All Requests</span>
-
-                <Link className={styles.create} to={"create"}>
-                    <button>
-                        <Icon icon="ph:plus-fill" />
-                        Create New
-                    </button>
-                </Link>
             </h1>
             <AgGridReact
                 className={styles.table}

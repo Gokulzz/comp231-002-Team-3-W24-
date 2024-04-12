@@ -42,7 +42,7 @@
 }
 
 .ag-row-pinned {
-    background-color: var(--bs-primary-soft)!important;
+    background-color: var(--bs-primary-soft) !important;
 }
 
 .ag-row-pinned > * {

@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "npx nodemon app.mjs",
     "start": "node app.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,6 +20,16 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.1",
     "nodemon": "^3.1.0",
+    "react-minimal-modal": "^2.1.0",
     "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/register": "^7.23.7",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-mock-extended": "^3.0.6",
+    "supertest": "^6.3.4"
   }
 }

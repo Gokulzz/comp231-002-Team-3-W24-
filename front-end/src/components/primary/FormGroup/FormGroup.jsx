@@ -2,12 +2,39 @@
 import styles from "./styles.module.scss"
 
 export default function FormGroup(
-    { title, type, name }
+    {
+        icon,
+        title,
+        type,
+        name,
+        defaultValue,
+        readOnly,
+        required
+    }
 ) {
     return (
         <div className={styles.formGroup}>
-            <p>{title}</p>
-            <input type={type} name={name} />
+            <div className={styles.fieldHeader}>
+                {icon}
+                {title}
+            </div>
+
+            {
+                type === "textarea" ?
+                    <textarea
+                        name={name}
+                        defaultValue={defaultValue}
+                        required={required}
+                        readOnly={readOnly} cols="30" rows="10"></textarea>
+                    :
+                    <input
+                        type={type}
+                        name={name}
+                        required={required}
+                        defaultValue={defaultValue}
+                        readOnly={readOnly} />
+            }
+
         </div>
     )
 }

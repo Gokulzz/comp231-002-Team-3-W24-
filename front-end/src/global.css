@@ -50,3 +50,17 @@ body {
 img {
     width: 100%;
 }
+
+.ReactModal__Content {
+    background-color: transparent !important;
+    border-radius: 1rem !important;
+    border: none !important;
+    transition: all 2s ease !important;
+}
+
+.ReactModal__Overlay {
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    transition: all 2s ease !important;
+    z-index: 999;
+}

@@ -26,11 +26,7 @@ export default function DoctorLayout() {
                 </NavLink>
 
 
-                <NavLink className={isActive}
-                    to={"appointments/requests"}>
-                    <Icon icon="iconoir:git-pull-request-closed" />
-                    <span>Apointments Requests</span>
-                </NavLink>
+           
 
 
 

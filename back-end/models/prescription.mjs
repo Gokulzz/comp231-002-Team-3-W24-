@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const prescriptionSchema = new mongoose.Schema(
@@ -6,25 +5,25 @@ const prescriptionSchema = new mongoose.Schema(
     doctorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", // Reference to the User model for the doctor
-      required: true
+      required: true,
     },
     patientId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", // Reference to the User model for the patient
-      required: true
+      required: true,
     },
     medication: {
       type: String,
-      required: true
+      required: true,
     },
     dosage: {
       type: String,
-      required: true
+      required: true,
     },
     instructions: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   { timestamps: true }
 );
