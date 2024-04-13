@@ -28,16 +28,19 @@ const authenticateAdmin = (req, res, next) => {
 
 // Update endpoint for doctor info
 //only system administrator can add this role....
-router.post("/:id/update-info", authenticateAdmin, async (req, res) => {
+router.post("/:username/update-info", authenticateAdmin, async (req, res) => {
   try {
-    const { id } = req.params;
+    const { username } = req.params;
     const { speciality, experience } = req.body;
 
     // Check if the doctor exists
-    const doctor = await UserModel.findById(id);
+    const doctor = await UserModel.findOne({ username: username });
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
+
+    // If doctor exists, get the doctor ID
+    const id = doctor._id;
 
     // Check if doctor info exists
     let doctorInfo = await DoctorInfo.findOne({ doctorId: id });
@@ -58,6 +61,7 @@ router.post("/:id/update-info", authenticateAdmin, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
 
 router.get("/search", async (req, res) => {
   try {
