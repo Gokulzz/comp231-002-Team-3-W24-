@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, json, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { Icon } from '@iconify/react'
 import { AgGridReact } from 'ag-grid-react'
@@ -46,8 +46,38 @@ export default function PatientApointmentRequests() {
   const [colDefs, setColDefs] = useState([
     { field: "doctorId", editable: false },
     { field: "userId", editable: false },
-    { field: "doctorInfo", flex: 1, editable: false },
-    { field: "userInfo", flex: 1, editable: false },
+    {
+      headerName: "Doctor - Info",
+      flex: 1,
+      editable: false,
+      children: [
+        {
+          field: "speciality",
+          flex: 1,
+          editable: false,
+          valueFormatter: ({ data }) => {
+            console.log(data)
+            const doctorInfo = data.doctorInfo
+            return JSON.parse(doctorInfo).speciality
+          }
+        },
+        {
+          field: "experience",
+          flex: 1,
+          editable: false,
+          valueFormatter: ({ data }) => {
+            console.log(data)
+            const doctorInfo = data.doctorInfo
+            return JSON.parse(doctorInfo).experience
+          }
+        },
+      ]
+    },
+    {
+      field: "userInfo",
+      flex: 1,
+      editable: false
+    },
     {
       field: "status",
       cellRenderer: (p) => (<StatusCell
@@ -61,6 +91,9 @@ export default function PatientApointmentRequests() {
   ]);
 
 
+
+
+  console.log(JSON.parse("{\"speciality\":\"Heart surgeon\",\"experience\":\"10 years\"}"))
 
   return (
     <div

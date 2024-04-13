@@ -34,6 +34,7 @@ import DoctorsPage from "./pages/Dashboards/Admin/Doctors/DoctorsPage";
 import DoctorLayout from "./pages/Dashboards/Doctor/DoctorLayout";
 import DoctorDashboard from "./pages/Dashboards/Doctor/Dashboard/DoctorDashboard";
 import DoctorApointments from "./pages/Dashboards/Doctor/Apointments/DoctorApointments";
+import DoctorsInfo from "./pages/Dashboards/Admin/Doctor-info/DoctorsInfo";
 
 
 
@@ -113,13 +114,13 @@ export default function App() {
           </Route>
 
 
-
           {/* administrator Pages */}
           <Route path="/dashboard/administrator/" element={<AdminLayout />}>
             <Route index path="" element={<AdminDashboard />} />
             <Route index path="dashboard" element={<AdminDashboard />} />
             <Route path="users" element={<UsersPage />} />
             <Route path="doctors" element={<DoctorsPage />} />
+            <Route path="doctors/change-info" element={<DoctorsInfo />} />
           </Route>
 
 
