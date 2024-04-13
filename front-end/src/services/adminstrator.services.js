@@ -20,9 +20,8 @@ export const DeleteUser = (userId) => {
     .catch((err) => err);
 };
 
-export const UpdateeDoctor = (userId, newData) => {
-  const url = ADMINSTRATOR.DOCTORS.UPDATE.replace("{id}", userId);
-  return post(url, { ...newData })
-    .then((res) => res.data)
-    .catch((err) => err);
+export const UpdateeDoctor = async (userName, newData) => {
+  const url = ADMINSTRATOR.DOCTORS.UPDATE.replace("{username}", userName);
+  const result = await post(url, { ...newData }).then((res) => res.data);
+  return result;
 };

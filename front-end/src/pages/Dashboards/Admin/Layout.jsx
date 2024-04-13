@@ -33,6 +33,11 @@ export default function AdminLayout() {
                     <Icon icon="fontisto:doctor" />
                     <span>Doctors</span>
                 </NavLink>
+
+                <NavLink className={isActive} to={"doctors/change-info"}>
+                    <Icon icon="ph:info-fill" />
+                    <span>Doctor Info</span>
+                </NavLink>
             </nav>
             <Outlet />
         </main>

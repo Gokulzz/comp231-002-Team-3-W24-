@@ -1,0 +1,17 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    align-items: start;
+    margin-top: 2rem;
+    height: max-content;
+    .submit {
+        all: unset;
+        background-color: white;
+        width: max-content;
+        padding: 0.5em 2em;
+        border-radius: 1rem;
+        margin-top: 2rem;
+    }
+}

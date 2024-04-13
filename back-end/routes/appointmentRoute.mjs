@@ -22,18 +22,21 @@ router.post("/", verifyToken, async (req, res) => {
     const { doctorUsername, userInfo, date, time } = req.body;
 
     // Find the user associated with the doctor's username from the userModel
-    const doctorUser = await userModel.findOne({ username: doctorUsername, role: 'doctor' }); // Ensure the user is a doctor
+    const doctorUser = await userModel.findOne({
+      username: doctorUsername,
+      role: "doctor",
+    }); // Ensure the user is a doctor
     if (!doctorUser) {
       return res.status(404).json({ message: "Doctor user not found" });
     }
-    console.log("doctorUser:", doctorUser); 
+    console.log("doctorUser:", doctorUser);
 
     // Get the associated doctor's information from the doctorModel using the doctorId from the user document
     const doctor = await doctorModel.findOne({ doctorId: doctorUser._id });
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
-    console.log("doctor:", doctor); 
+    console.log("doctor:", doctor);
 
     // Extract doctorId, speciality, and experience from the fetched doctor
     const { doctorId, speciality, experience } = doctor;
@@ -41,7 +44,7 @@ router.post("/", verifyToken, async (req, res) => {
     // Construct the doctorInfo object with speciality included
     const doctorInfo = JSON.stringify({
       speciality,
-      experience
+      experience,
     });
 
     // Create the appointment
@@ -58,8 +61,9 @@ router.post("/", verifyToken, async (req, res) => {
     await appointment.save();
 
     // Send the response
-    res.status(201).json({ message: "Appointment created successfully", appointment });
-
+    res
+      .status(201)
+      .json({ message: "Appointment created successfully", appointment });
   } catch (error) {
     console.error("Error creating appointment:", error);
     res.status(500).json({ message: "Internal server error" });

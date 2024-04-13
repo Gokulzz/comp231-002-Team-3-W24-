@@ -24,11 +24,8 @@ export default function PatientCreateApointment() {
 
 
     const [colDefs, setColDefs] = useState([]);
-
-
     useEffect(() => {
         setColDefs([])
-
         setColDefs([
             {
                 field: "userId",
@@ -44,9 +41,7 @@ export default function PatientCreateApointment() {
                 editable: false,
                 onClick: () => setIsShowModal(true),
                 selectField: "doctorUsername",
-
                 readOnly: true
-
             },
             {
                 field: "userInfo",
