@@ -1,0 +1,86 @@
+.form-component h2 {
+    margin-top: -50px;
+    color: white;
+    margin-bottom: 30px;
+  }
+  .form-component h4 {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .form-component p {
+    max-width: 750px;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .form-component form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .form-component form div {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .form-component form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .form-component form div {
+    display: flex;
+    gap: 30px;
+  }
+
+  ::-webkit-input-placeholder { 
+    color: white;
+  }
+
+  input {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.459);
+    border-radius: 4px;
+    padding: 0.33em;
+    outline: none !important;
+    font-size: 1rem;
+    resize: vertical;
+    color: white;
+  }
+
+  .gender-dropdown{
+    border: 1px solid rgba(255, 255, 255, 0.459);
+    border-radius: 4px;
+    padding: 0.33em;
+    background-color: transparent;
+    color: white;
+  }
+
+  option {
+    color: black;
+  }
+
+  .register-form {
+    max-width: 1200px;
+    margin: 100px auto 20px auto;
+  }
+
+  .already-registered{
+    text-decoration: none;
+    color: white;
+  }
+
+  .submitButton {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em 1em;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    gap: 0.25rem;
+    border-radius: 1rem;
+    border: 1px white solid;
+    color: white;
+  }
